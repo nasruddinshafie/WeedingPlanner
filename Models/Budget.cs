@@ -1,6 +1,6 @@
 ﻿namespace WeedingPlanner.Models
 {
-    public class Budject
+    public class Budget
     {
         public int Id { get; set; }
         public string? Name { get; set; } 

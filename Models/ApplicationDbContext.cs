@@ -6,7 +6,7 @@ namespace WeedingPlanner.Models
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Budject> Budjects { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
         public DbSet<Expenses> Expenses { get; set; }
     }
 }
