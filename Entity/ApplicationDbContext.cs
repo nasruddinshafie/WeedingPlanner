@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace WeedingPlanner.Models
+namespace WeedingPlanner.Entity
 {
     public class ApplicationDbContext : DbContext
     {

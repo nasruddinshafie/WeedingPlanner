@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WeedingPlanner.Models;
+using WeedingPlanner.Entity;
 
 #nullable disable
 
 namespace WeedingPlanner.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231111163155_InitialCreate")]
+    [Migration("20231111164437_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace WeedingPlanner.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WeedingPlanner.Models.Budget", b =>
+            modelBuilder.Entity("WeedingPlanner.Entity.Budget", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace WeedingPlanner.Migrations
                     b.ToTable("Budgets");
                 });
 
-            modelBuilder.Entity("WeedingPlanner.Models.Expenses", b =>
+            modelBuilder.Entity("WeedingPlanner.Entity.Expenses", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,16 +74,16 @@ namespace WeedingPlanner.Migrations
                     b.ToTable("Expenses");
                 });
 
-            modelBuilder.Entity("WeedingPlanner.Models.Expenses", b =>
+            modelBuilder.Entity("WeedingPlanner.Entity.Expenses", b =>
                 {
-                    b.HasOne("WeedingPlanner.Models.Budget", null)
+                    b.HasOne("WeedingPlanner.Entity.Budget", null)
                         .WithMany("Expenses")
                         .HasForeignKey("BudgetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WeedingPlanner.Models.Budget", b =>
+            modelBuilder.Entity("WeedingPlanner.Entity.Budget", b =>
                 {
                     b.Navigation("Expenses");
                 });

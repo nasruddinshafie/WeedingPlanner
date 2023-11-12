@@ -1,4 +1,4 @@
-﻿namespace WeedingPlanner.Models
+﻿namespace WeedingPlanner.Entity
 {
     public class Expenses
     {
