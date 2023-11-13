@@ -14,7 +14,7 @@ namespace WeedingPlanner.Controllers
         // GET: DashboardController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return Viewsss();
         }
 
         // GET: DashboardController/Create
