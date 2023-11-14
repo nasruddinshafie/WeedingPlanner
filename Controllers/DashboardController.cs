@@ -50,7 +50,6 @@ namespace WeedingPlanner.Controllers
 
                     bud.Expenses = expenses;
 
-                    expenses.Clear();
                 }
 
                 budgets.Add(bud);
