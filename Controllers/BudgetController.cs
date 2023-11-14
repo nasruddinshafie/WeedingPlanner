@@ -95,23 +95,44 @@ namespace WeedingPlanner.Controllers
         }
 
         // GET: BudgetController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var oldBudget = await _context.Budgets.FindAsync(id);
+            Budget newBudget = new Budget
+            {
+                Id = id,
+                Name = oldBudget.Name,
+                Amount = oldBudget.Amount,
+                Description = oldBudget.Description,
+                Balance = oldBudget.Balance,
+            };
+
+            return View(newBudget);
         }
 
         // POST: BudgetController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task <ActionResult> Edit(int id, Budget editedBudget)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    var newBudget = await _context.Budgets.FindAsync(id);
+                    newBudget.Name = editedBudget.Name;
+                    newBudget.Description = editedBudget.Description;
+                    newBudget.Balance = editedBudget.Balance;
+                    newBudget.Amount = editedBudget.Amount;
+
+                }
+                return RedirectToAction("Index", new { id = editedBudget.Id });
             }
             catch
             {
-                return View();
+                ModelState.AddModelError(string.Empty, "An error occurred while updating the product.");
+
+                return View("Error");
             }
         }
 
