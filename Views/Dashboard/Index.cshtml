@@ -1,9 +1,160 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@model List<Budget>
+
 @{
     ViewData["Title"] = "Dashboard";
+
+    var budgets = Model.ToList();
+
 }
+<div class="row p-2">
+    <div class="col-md-6 ">
+        <!-- Box Comment -->
+        <div class="card card-widget">
+            <div class="card-header">
+                <div class="user-block">
+                    
+                    <span class="username"><a href="#">Summary.</a></span>
+                    <span class="description">Budget & Expenses</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" title="Mark as read">
+                        <i class="far fa-circle"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="position-relative mb-4">
+                    <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas id="sales-chart" height="400" width="1158" style="display: block; height: 200px; width: 579px;" class="chartjs-render-monitor"></canvas>
+                </div>
+            </div>
+         
+          
+        </div>
 
+        <div class="fixed-top p-5">
+            <div class="float-sm-right">
+                <div class=" p-3  rounded">
+                    <!-- Add shadow to this div -->
+                    <a class="btn btn-primary m-2" href="@Url.Action("Create", "Budget")">ADD BUDGET <span><i class="fa-solid fa-plus"></i></span></a>
+                    <a class="btn btn-danger m-2" href="@Url.Action("Create", "Expenses")">ADD EXPENSES <span><i class="fa-solid fa-minus"></i></span></a>
+                </div>
+            </div>
+        </div>
 
-<h1>Dashboard</h1>
+        <div class="card">
+            <div class="card-header border-0">
+                <h3 class="card-title">Expenses Summary</h3>
+              
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <p >
+                      Subtotal Budget
+                    </p>
+                    <p class="d-flex flex-column text-right">
+                      RM 0.00
+                    </p>
+                </div>
+                <!-- /.d-flex -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <p>
+                        Subtotal Budget
+                    </p>
+                    <p class="d-flex flex-column text-right">
+                        RM 0.00
+                    </p>
+                </div>
+                <!-- /.d-flex -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <p>
+                        Subtotal Budget
+                    </p>
+                    <p class="d-flex flex-column text-right">
+                        RM 0.00
+                    </p>
+                </div>
+                <!-- /.d-flex -->
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-6">
+        <!-- Box Comment -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Category</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                   
+                   
+                    @foreach(Budget budget in budgets)
+                    {
+                        <li class="item" style="background-color: #E7E9E8">
+                            <div class="product-img">
+                                <img src="https://placehold.co/400" alt="Product Image" class="brand-image img-circle elevation-3">
+                            </div>
+                            <div class="product-info">
+                                <a href="javascript:void(0)" class="product-title" style="color: black">
+                                    @budget.Name
+                                    <span class="badge badge-primary float-right">RM @budget.Amount</span>
+                                </a>
+                                <span class="product-description">
+                                   @budget.Description
+                                </span>
+
+                                @if( budget.Expenses != null)
+                                {
+                                    <p class="text-danger">Expenses</p>
+                                    <ul>
+                                        @foreach (Expenses expenses in budget.Expenses)
+                                        {
+                                            <li>
+                                                @expenses.Name
+                                                <span class="badge badge-danger float-right">RM @expenses.Amount</span>
+                                            </li>
+                                           
+                                        }
+                                    </ul>
+                                }
+                              
+                            </div>
+                        </li>
+                    }
+
+                   
+                 
+                    <!-- /.item -->
+                
+                </ul>
+            </div>
+            <!-- /.card-body -->
+          
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>

@@ -1,0 +1,44 @@
+﻿
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+.sidebar-dark-primary {
+    background-color: #39594C !important;
+}
+
+.navbar-light {
+    background-color: #39594C !important;
+}
+
+.main-content {
+    background-color: #E7E9E8 !important;
+}
+.active {
+    background-color: #ECDAFF !important;
+}
+
+.card {
+    background-color: #E7E9E8 !important;
+    border: 1px solid #E7E9E8;
+    border-radius: 14px
+}
+
+.product-title {
+    color: #000;
+}
+
+.product-img {
+    margin: 0px 10px 0px 10px;
+}
+
+.badge {
+    margin: 0px 10px 0px 0px;
+}
+
+.bg-custom {
+    background-color: #906494 !important;
+
+    border-radius: 20px;
+}
+
+

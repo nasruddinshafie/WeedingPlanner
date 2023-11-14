@@ -1,6 +1,189 @@
-﻿
+﻿@model List<Budget>
 @{
     ViewData["Title"] = "Budget";
+
+    var budgets = Model.ToList();
+
+    var totalBudget = Model.Select(x => x.Amount).Sum();
+
+    var totalExpenses = Model.Sum(item => item.Expenses?.Sum(expense => expense.Amount));
+
+    var balance = totalBudget - totalExpenses;
 }
 
-<h1>Budget</h1>
+<link href="@Url.Content("~/css/calculator.css")" rel="stylesheet" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+           
+            <div class=" card-widget widget-user shadow">
+                <div class="widget-user-header bg-custom">
+                    <h3 class="widget-user-username">Budget &amp; Expenses</h3>
+                    <h5 class="widget-user-desc">Weeding Planner</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header text-danger">-RM @totalExpenses</h5>
+                                <span class="description-text ">EXPENSES SO FAR</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-6 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header text-success">RM @totalBudget</h5>
+                                <span class="description-text">BAJET SO FAR</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                        <!-- /.col -->
+                        <!-- /.col -->
+                    </div>
+                </div>
+                <div class="widget-user-image">
+                    <img class="img-circle elevation-2" src="https://placehold.co/400" alt="User Avatar">
+                </div>
+                <div class="card-footer">
+                   
+                    <div class="row">
+                        <div class="col-sm-12 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header text-primary">RM @balance</h5>
+                                <span class="description-text ">TOTAL BALANCE</span>
+                            </div>
+                            <!-- /.description-block -->
+                        </div>
+                     
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</div>
+
+
+
+<div class="container mt-5" >
+    <div class="row">
+        @foreach(Budget budget in budgets)
+        {
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">@budget.Name</span>
+                        <span class="info-box-number">RM @budget.Amount</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="fixed-top mt-5">
+    <div class="float-sm-right">
+        <div class=" p-3  rounded">
+            <!-- Add shadow to this div -->
+            <a class="btn btn-primary m-2" href="@Url.Action("Create", "Budget")">ADD BUDGET <span><i class="fa-solid fa-plus"></i></span></a>
+            <a class="btn btn-danger m-2" href="@Url.Action("Create", "Expenses")">ADD EXPENSES <span><i class="fa-solid fa-minus"></i></span></a>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+
+
+<div class="modal fade" id="calculatorModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="calculatorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="calculatorModalLabel">ADD BUDGET</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+               
+                  
+               @* <div class="calculator card">
+
+                    <input type="text" class="calculator-screen z-depth-1" value="" disabled />
+
+                    <div class="calculator-keys">
+
+                        <button type="button" class="operator btn btn-info" value="+">+</button>
+                        <button type="button" class="operator btn btn-info" value="-">-</button>
+                        <button type="button" class="operator btn btn-info" value="*">&times;</button>
+                        <button type="button" class="operator btn btn-info" value="/">&divide;</button>
+
+                        <button type="button" value="7" class="btn btn-light waves-effect">7</button>
+                        <button type="button" value="8" class="btn btn-light waves-effect">8</button>
+                        <button type="button" value="9" class="btn btn-light waves-effect">9</button>
+
+
+                        <button type="button" value="4" class="btn btn-light waves-effect">4</button>
+                        <button type="button" value="5" class="btn btn-light waves-effect">5</button>
+                        <button type="button" value="6" class="btn btn-light waves-effect">6</button>
+
+
+                        <button type="button" value="1" class="btn btn-light waves-effect">1</button>
+                        <button type="button" value="2" class="btn btn-light waves-effect">2</button>
+                        <button type="button" value="3" class="btn btn-light waves-effect">3</button>
+
+
+                        <button type="button" value="0" class="btn btn-light waves-effect">0</button>
+                        <button type="button" class="decimal function btn btn-secondary" value=".">.</button>
+                        <button type="button" class="all-clear function btn btn-danger btn-sm" value="all-clear">AC</button>
+
+                        <button type="button" class="equal-sign operator btn btn-default" value="=">=</button>
+
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#budgetForm').on('submit', function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        // Handle successful form submission, e.g., close modal
+                        $('#calculatorModal').modal('hide');
+
+                        console.log(data)
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle validation errors
+                        $('#calculatorModal .modal-body').html(xhr.responseText);
+
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        })
+    </script>
+}
+
+
+

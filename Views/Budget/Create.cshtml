@@ -1,0 +1,54 @@
+﻿@model Budget
+@{
+    ViewData["Title"] = "Create Budget";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card ">
+                <div class="card-header">
+                    <h3 class="card-title">Quick Example</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form method="post" asp-action="Create">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="Name">Budget Name</label>
+                            <input type="text" asp-for="Name" class="form-control" placeholder="Enter Budget Name">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description">Description</label>
+                            <textarea class="form-control" rows="3" asp-for="Description" placeholder="Enter ..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Amount">Amount</label>
+                            <input type="number" class="form-control" id="Amount" asp-for="Amount" name="Amount" placeholder="Amount">
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Balance">Balance</label>
+                            <input type="number" asp-for="Balance" class="form-control" id="Balance" name="Balance" placeholder="Balance">
+                            <span asp-validation-for="Balance" class="text-danger"></span>
+
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>

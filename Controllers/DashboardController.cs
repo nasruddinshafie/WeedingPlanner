@@ -1,14 +1,62 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WeedingPlanner.Models;
 
 namespace WeedingPlanner.Controllers
 {
     public class DashboardController : Controller
     {
-        // GET: DashboardController
-        public ActionResult Index()
+        private readonly WeedingPlanner.Entity.ApplicationDbContext _context;
+        public DashboardController(WeedingPlanner.Entity.ApplicationDbContext context) 
         {
-            return View();
+            _context = context;
+        }
+        // GET: DashboardController
+        public async Task<ActionResult> Index()
+        {
+
+            List<Budget> budgets = new List<Budget>();
+            List<Expenses> expenses = new List<Expenses>();
+
+
+            var budget = await _context.Budgets.Include(x => x.Expenses).ToListAsync();
+
+            foreach (var item in budget)
+            {
+                var bud = new Budget
+                {
+                    Name = item.Name,
+                    Description = item.Description,
+                    Amount = item.Amount,
+                    Balance = item.Balance,
+                    Id = item.Id,
+
+                };
+
+                if (item.Expenses?.Count > 0)
+                {
+                    foreach (var expense in item.Expenses)
+                    {
+                        var exp = new Expenses
+                        {
+                            Amount = expense.Amount,
+                            Name = expense.Name,
+                            BudgetId = expense.Id,
+                        };
+
+                        expenses.Add(exp);
+                    }
+
+                    bud.Expenses = expenses;
+
+                    expenses.Clear();
+                }
+
+                budgets.Add(bud);
+            }
+
+            return View(budgets);
         }
 
         // GET: DashboardController/Details/5

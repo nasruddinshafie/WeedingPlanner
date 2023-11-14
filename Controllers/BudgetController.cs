@@ -1,14 +1,62 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+
+using WeedingPlanner.Models;
 
 namespace WeedingPlanner.Controllers
 {
     public class BudgetController : Controller
     {
         // GET: BudgetController
-        public ActionResult Index()
+
+        private readonly WeedingPlanner.Entity.ApplicationDbContext _context;
+        public BudgetController(WeedingPlanner.Entity.ApplicationDbContext context) { 
+            _context = context;
+        }
+
+        public async Task <ActionResult> Index()
         {
-            return View();
+            List<Budget> budgets = new List<Budget>();
+            List<Expenses> expenses = new List<Expenses>();
+            
+
+            var budget = await _context.Budgets.Include(x => x.Expenses).ToListAsync();
+
+            foreach(var item in budget)
+            {
+                var bud = new Budget
+                {
+                    Name = item.Name,
+                    Description = item.Description,
+                    Amount = item.Amount,
+                    Balance = item.Balance,
+                    Id = item.Id,
+                   
+                };
+
+                if(item.Expenses?.Count > 0)
+                {
+                    foreach(var expense in item.Expenses)
+                    {
+                        var exp = new Expenses
+                        {
+                            Amount = expense.Amount,
+                            Name = expense.Name,
+                            BudgetId = expense.Id,
+                        };
+
+                        expenses.Add(exp);
+                    }
+                    bud.Expenses = expenses;
+                }
+                   
+                budgets.Add(bud);
+            }
+            
+
+            return View(budgets);
         }
 
         // GET: BudgetController/Details/5
@@ -26,16 +74,24 @@ namespace WeedingPlanner.Controllers
         // POST: BudgetController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Budget budget)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                _context.Add(new WeedingPlanner.Entity.Budget
+                {
+                    Name = budget.Name,
+                    Description = budget.Description,
+                    Amount = budget.Amount,
+                    Balance = budget.Balance,
+                });
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index" , "Dashboard");
             }
-            catch
-            {
-                return View();
-            }
+
+
+            return View(budget);
         }
 
         // GET: BudgetController/Edit/5
