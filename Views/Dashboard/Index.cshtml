@@ -7,14 +7,14 @@
     var budgets = Model.ToList();
 
 }
-<div class="row p-2">
+<div style="background-color:#ECDAFF;" class="row p-2">
     <div class="col-md-6 ">
         <!-- Box Comment -->
-        <div class="card card-widget">
+        <div style="border-color: #906494;background-color:#ECDAFF!important;" class="card card-widget">
             <div class="card-header">
                 <div class="user-block">
                     
-                    <span class="username"><a href="#">Summary.</a></span>
+                    <span class="username">Summary</span>
                     <span class="description">Budget & Expenses</span>
                 </div>
                 <!-- /.user-block -->
@@ -42,19 +42,19 @@
           
         </div>
 
-        <div class="fixed-top p-5">
+        <div class="fixed-bottom p-5">
             <div class="float-sm-right">
                 <div class=" p-3  rounded">
                     <!-- Add shadow to this div -->
-                    <a class="btn btn-primary m-2" href="@Url.Action("Create", "Budget")">ADD BUDGET <span><i class="fa-solid fa-plus"></i></span></a>
-                    <a class="btn btn-danger m-2" href="@Url.Action("Create", "Expenses")">ADD EXPENSES <span><i class="fa-solid fa-minus"></i></span></a>
+                    <a style="border-radius:50%;border-color: #906494;background-color:#ECDAFF;" class="btn btn-lg m-lg-3" href="@Url.Action("Create", "Budget")"><span><i class="fa-solid fa-plus font-weight-bold"></i></span></a>
+                    <a style="border-radius:50%;border-color: #906494;background-color:#ECDAFF;" class="btn btn-lg m-2" href="@Url.Action("Create", "Expenses")"><span><i class="fa-solid fa-minus font-weight-bold " style="color:black;"></i></span></a>
                 </div>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header border-0">
-                <h3 class="card-title">Expenses Summary</h3>
+        <div style="border-color: #906494;background-color:#ECDAFF!important;" class="card">
+            <div class="card-header border-1">
+                <h3 class="card-title" style="font-weight:600;">Expenses Summary</h3>
               
             </div>
             <div class="card-body">
@@ -92,7 +92,7 @@
     <!-- /.col -->
     <div class="col-md-6">
         <!-- Box Comment -->
-        <div class="card">
+        <div style="border-color: #906494;background-color:#ECDAFF!important;" class="card">
             <div class="card-header">
                 <h3 class="card-title">Category</h3>
 
@@ -112,7 +112,7 @@
                    
                     @foreach(Budget budget in budgets)
                     {
-                        <li class="item" style="background-color: #E7E9E8">
+                        <li class="item" style="background-color: #ECDAFF;">
                             <div class="product-img">
                                 <img src="https://placehold.co/400" alt="Product Image" class="brand-image img-circle elevation-3">
                             </div>

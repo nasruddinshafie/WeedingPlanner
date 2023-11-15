@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 mx-auto">
-            <div class="card ">
+            <div style ="border-color: #906494;background-color:#ECDAFF!important;" class="card ">
                 <div class="card-header">
                     <h3 class="card-title">Quick Example</h3>
                 </div>
@@ -17,25 +17,25 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label asp-for="Name">Budget Name</label>
-                            <input type="text" asp-for="Name" class="form-control" placeholder="Enter Budget Name">
+                            <input type="text" asp-for="Name" style="border-color: #906494;background-color:#E1CEF0!important;" class="form-control" placeholder="Enter Budget Name">
                             <span asp-validation-for="Name" class="text-danger"></span>
 
                         </div>
                         <div class="form-group">
                             <label asp-for="Description">Description</label>
-                            <textarea class="form-control" rows="3" asp-for="Description" placeholder="Enter ..."></textarea>
+                            <textarea style="border-color: #906494;background-color:#E1CEF0!important;" class="form-control" rows="3" asp-for="Description" placeholder="Enter ..."></textarea>
                             <span asp-validation-for="Description" class="text-danger"></span>
 
                         </div>
                         <div class="form-group">
                             <label asp-for="Amount">Amount</label>
-                            <input type="number" class="form-control" id="Amount" asp-for="Amount" name="Amount" placeholder="Amount">
+                            <input type="number" style="border-color: #906494;background-color:#E1CEF0!important;" class="form-control" id="Amount" asp-for="Amount" name="Amount" placeholder="Amount">
                             <span asp-validation-for="Amount" class="text-danger"></span>
 
                         </div>
                         <div class="form-group">
                             <label asp-for="Balance">Balance</label>
-                            <input type="number" asp-for="Balance" class="form-control" id="Balance" name="Balance" placeholder="Balance">
+                            <input type="number" asp-for="Balance" style="border-color: #906494;background-color:#E1CEF0!important;" class="form-control" id="Balance" name="Balance" placeholder="Balance">
                             <span asp-validation-for="Balance" class="text-danger"></span>
 
                         </div>
@@ -44,7 +44,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" style="border-color: #906494;background-color:#906494!important;color:white" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
